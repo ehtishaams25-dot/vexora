@@ -29,6 +29,7 @@ html, body {
     line-height: 1.6;
     cursor: none; /* Hide default cursor for custom one */
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 /* Custom Cursor */
@@ -707,8 +708,21 @@ p {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        cursor: auto;
+    }
+    .cursor-dot, .cursor-outline {
+        display: none !important;
+    }
+    .fixed-header {
+        padding: 0.8rem 1rem;
+        width: calc(100vw - 2rem);
+    }
     .slide {
-        padding: 10vh 5vw;
+        padding: 8vh 5vw;
+    }
+    .grid-2 {
+        gap: 3rem;
     }
     .scope-grid {
         grid-template-columns: 1fr;
@@ -721,5 +735,20 @@ p {
     }
     .display-text {
         font-size: 3rem;
+    }
+    .investment-card {
+        padding: 1.5rem;
+    }
+    .package-price .amount {
+        font-size: 2.5rem;
+    }
+    .total-price {
+        font-size: 1.8rem;
+    }
+    .investment-card::before {
+        font-size: 10rem;
+    }
+    .deliverables-list {
+        grid-template-columns: 1fr;
     }
 }

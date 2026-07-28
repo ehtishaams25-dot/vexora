@@ -3,32 +3,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
 
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (!isMobile && cursorDot && cursorOutline) {
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
 
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
 
-        // Slight delay for outline for a smooth follow effect
-        setTimeout(() => {
-            cursorOutline.style.left = `${posX}px`;
-            cursorOutline.style.top = `${posY}px`;
-        }, 50);
-    });
-
-    // Cursor hover effects on buttons/interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, .addon');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-            cursorOutline.style.backgroundColor = 'rgba(124, 106, 82, 0.1)';
+            // Slight delay for outline for a smooth follow effect
+            setTimeout(() => {
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            }, 50);
         });
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursorOutline.style.backgroundColor = 'transparent';
+
+        // Cursor hover effects on buttons/interactive elements
+        const interactiveElements = document.querySelectorAll('button, a, .addon');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(124, 106, 82, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
         });
-    });
+    }
 
     // Intersection Observer for Slide Animations
     const slides = document.querySelectorAll('.slide');
@@ -52,20 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.15 });
 
     slides.forEach(slide => {
         slideObserver.observe(slide);
     });
 
     // Progress Bar Update
-    const progressBar = document.getElementById('progressBar');
+    const progressBar = document.getElementById('progressBar') || document.querySelector('.progress-bar');
 
-    window.addEventListener('scroll', () => {
-        const totalScroll = window.scrollY;
-        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (totalScroll / windowHeight) * 100;
-        
-        progressBar.style.width = `${scrollPercent}%`;
-    });
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const totalScroll = window.scrollY;
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (totalScroll / windowHeight) * 100;
+            
+            progressBar.style.width = `${scrollPercent}%`;
+        });
+    }
 });
