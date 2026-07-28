@@ -97,15 +97,18 @@ html, body {
     z-index: 100;
     pointer-events: none;
     
-    /* Glassmorphism Pill */
-    background: rgba(245, 242, 238, 0.6);
+    /* True Glassmorphism Pill */
+    background: rgba(128, 128, 128, 0.15);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 100px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-    
-    color: var(--black);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.header-left, .header-right {
+    mix-blend-mode: difference;
+    color: #ffffff;
 }
 
 .header-logo {
