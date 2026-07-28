@@ -42,15 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
                 
-                // Optional: Adjust header color based on dark/light slide theme
-                const header = document.querySelector('.site-header');
-                if (entry.target.classList.contains('dark-theme')) {
-                    // Header text blends using difference mix-blend-mode, so this might not be strictly needed,
-                    // but it's good to have logic hook here if we want explicit color changes later.
+                const header = document.querySelector('.fixed-header');
+                if (header) {
+                    if (entry.target.classList.contains('dark-theme')) {
+                        header.style.color = 'var(--white)';
+                    } else {
+                        header.style.color = 'var(--black)';
+                    }
                 }
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.5 });
 
     slides.forEach(slide => {
         slideObserver.observe(slide);
